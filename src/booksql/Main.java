@@ -16,11 +16,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("Hello world! we love books books books.");
+        System.out.println("We love books books books.\n--------------------------");
         
         String jdbcUrl = "jdbc:postgresql://localhost:5432/inclass_db";
-        String username = "";
-        String password = "";
+        String username = EnvReader.getUsername();
+        String password = EnvReader.getPassword();
         
         Connection connection;
         
@@ -32,7 +32,7 @@ public class Main {
         } catch(Exception e){
             System.out.println("Issue connecting to the postgresql db.");
         }
-        // TODO code application logic here
+        
     }
     
 }
