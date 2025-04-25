@@ -4,17 +4,32 @@
  */
 package booksql.GUIComponents;
 
-/**
- *
- * @author zander
- */
-public class Navbar extends javax.swing.JPanel {
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+public class Navbar extends javax.swing.JPanel {
+    
+    ArrayList<NavbarListener> listeners;
     /**
      * Creates new form NavBar
      */
     public Navbar() {
         initComponents();
+        
+        
+        this.listeners = new ArrayList();
+        initButtons();
+    }
+    
+    private void initButtons(){
+        this.homeBtn.addActionListener(new NavbarBtnClickListener(View.HOME));
+        this.checkInBtn.addActionListener(new NavbarBtnClickListener(View.CHECKIN));
+        this.checkOutBtn.addActionListener(new NavbarBtnClickListener(View.CHECKOUT));
+        this.userLUpBtn.addActionListener(new NavbarBtnClickListener(View.USERLOOKUP));
+        this.bookSearchBtn.addActionListener(new NavbarBtnClickListener(View.BOOKSEARCH));
+        this.authorSearchBtn.addActionListener(new NavbarBtnClickListener(View.AUTHORSEARCH));
+        this.publisherSearchBtn.addActionListener(new NavbarBtnClickListener(View.PUBLISHERSEARCH));
     }
 
     /**
@@ -26,69 +41,177 @@ public class Navbar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        navBarPanel = new javax.swing.JPanel();
+        homeBtn = new javax.swing.JButton();
+        checkOutBtn = new javax.swing.JButton();
+        checkInBtn = new javax.swing.JButton();
+        userLUpBtn = new javax.swing.JButton();
+        bookSearchBtn = new javax.swing.JButton();
+        authorSearchBtn = new javax.swing.JButton();
+        publisherSearchBtn = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(200, 600));
         setRequestFocusEnabled(false);
 
-        jButton1.setText("jButton1");
+        navBarPanel.setBackground(new java.awt.Color(255, 153, 0));
+        navBarPanel.setForeground(new java.awt.Color(255, 255, 255));
+        navBarPanel.setPreferredSize(new java.awt.Dimension(200, 800));
 
-        jButton2.setText("jButton1");
+        homeBtn.setBackground(new java.awt.Color(204, 204, 204));
+        homeBtn.setForeground(new java.awt.Color(51, 51, 51));
+        homeBtn.setText("Home");
+        homeBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        homeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        homeBtn.setPreferredSize(new java.awt.Dimension(146, 40));
 
-        jButton3.setText("jButton1");
+        checkOutBtn.setBackground(new java.awt.Color(204, 204, 204));
+        checkOutBtn.setForeground(new java.awt.Color(51, 51, 51));
+        checkOutBtn.setText("Check Out Book");
+        checkOutBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        checkOutBtn.setPreferredSize(new java.awt.Dimension(146, 40));
+        checkOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkOutBtnActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("jButton1");
+        checkInBtn.setBackground(new java.awt.Color(204, 204, 204));
+        checkInBtn.setForeground(new java.awt.Color(51, 51, 51));
+        checkInBtn.setText("Check In Book");
+        checkInBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        checkInBtn.setPreferredSize(new java.awt.Dimension(146, 40));
 
-        jButton5.setText("jButton1");
+        userLUpBtn.setBackground(new java.awt.Color(204, 204, 204));
+        userLUpBtn.setForeground(new java.awt.Color(51, 51, 51));
+        userLUpBtn.setText("User Lookup");
+        userLUpBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        userLUpBtn.setPreferredSize(new java.awt.Dimension(146, 40));
 
-        jButton6.setText("jButton1");
+        bookSearchBtn.setBackground(new java.awt.Color(204, 204, 204));
+        bookSearchBtn.setForeground(new java.awt.Color(51, 51, 51));
+        bookSearchBtn.setText("Book Search");
+        bookSearchBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        bookSearchBtn.setPreferredSize(new java.awt.Dimension(146, 40));
+
+        authorSearchBtn.setBackground(new java.awt.Color(204, 204, 204));
+        authorSearchBtn.setForeground(new java.awt.Color(51, 51, 51));
+        authorSearchBtn.setText("Author Search");
+        authorSearchBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        authorSearchBtn.setPreferredSize(new java.awt.Dimension(146, 40));
+
+        publisherSearchBtn.setBackground(new java.awt.Color(204, 204, 204));
+        publisherSearchBtn.setForeground(new java.awt.Color(51, 51, 51));
+        publisherSearchBtn.setText("Publisher Search");
+        publisherSearchBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        publisherSearchBtn.setPreferredSize(new java.awt.Dimension(146, 40));
+
+        javax.swing.GroupLayout navBarPanelLayout = new javax.swing.GroupLayout(navBarPanel);
+        navBarPanel.setLayout(navBarPanelLayout);
+        navBarPanelLayout.setHorizontalGroup(
+            navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navBarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(homeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkOutBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(checkInBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(userLUpBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bookSearchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(authorSearchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(publisherSearchBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        navBarPanelLayout.setVerticalGroup(
+            navBarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(navBarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(homeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkInBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(userLUpBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bookSearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(authorSearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(publisherSearchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(478, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(navBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addContainerGap(396, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(navBarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void checkOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkOutBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    private javax.swing.JButton authorSearchBtn;
+    private javax.swing.JButton bookSearchBtn;
+    private javax.swing.JButton checkInBtn;
+    private javax.swing.JButton checkOutBtn;
+    private javax.swing.JButton homeBtn;
+    private javax.swing.JPanel navBarPanel;
+    private javax.swing.JButton publisherSearchBtn;
+    private javax.swing.JButton userLUpBtn;
     // End of variables declaration//GEN-END:variables
+
+    public enum View{
+        HOME,
+        CHECKIN,
+        CHECKOUT,
+        USERLOOKUP,
+        BOOKSEARCH,
+        AUTHORSEARCH,
+        PUBLISHERSEARCH,
+    }
+    
+    public void addListener(NavbarListener listener){
+        this.listeners.add(listener);
+    }
+    
+    public void removeListener(NavbarListener listener){
+        this.listeners.remove(listener);
+    }
+    
+    private void notifyListeners(View v){
+        for(NavbarListener listener : this.listeners){
+            listener.onNavBtnClicked(v);
+        }
+    }
+
+    private class NavbarBtnClickListener implements ActionListener {
+        private View v;
+        
+        public NavbarBtnClickListener(View view){
+            this.v = view;
+        }
+        
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            notifyListeners(this.v);
+        }
+        
+    }
+
 }
