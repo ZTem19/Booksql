@@ -4,6 +4,7 @@
  */
 package booksql;
 
+import booksql.GUIComponents.Window;
 import java.sql.*;
 
 /**
@@ -32,6 +33,10 @@ public class Main {
         } catch(Exception e){
             System.out.println("Issue connecting to the postgresql db.");
         }
+        
+        Window win = new Window();
+        win.setVisible(true);
+        
         
     }
     
