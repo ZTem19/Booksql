@@ -6,6 +6,8 @@ package booksql;
 
 import booksql.GUIComponents.Window;
 import java.sql.*;
+import booksql.forms.BookDisplay;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,17 +21,23 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("We love books books books.\n--------------------------");
         
-        String jdbcUrl = "jdbc:postgresql://localhost:5432/inclass_db";
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/BookSQL";
         String username = EnvReader.getUsername();
         String password = EnvReader.getPassword();
         
         Connection connection;
         
-        try {
+        try 
+        {
             Class.forName("org.postgresql.Driver");
             System.out.println("Loaded Driver");
-            connection = DriverManager.getConnection(jdbcUrl, username, password);
+            
+            DatabaseAccess.init(jdbcUrl, username, password);
             System.out.println("Made connection");
+            
+            // Run the Swing form
+            SwingUtilities.invokeLater(() -> new BookDisplay().setVisible(true));
+            
         } catch(Exception e){
             System.out.println("Issue connecting to the postgresql db.");
         }
