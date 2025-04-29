@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("We love books books books.\n--------------------------");
         
-        String jdbcUrl = "jdbc:postgresql://localhost:5432/BookSQL";
+        String jdbcUrl = "jdbc:postgresql://localhost:5432/booksql";
         String username = EnvReader.getUsername();
         String password = EnvReader.getPassword();
         
@@ -36,10 +36,11 @@ public class Main {
             System.out.println("Made connection");
             
             // Run the Swing form
-            SwingUtilities.invokeLater(() -> new BookDisplay().setVisible(true));
+//            SwingUtilities.invokeLater(() -> new BookDisplay().setVisible(true));
             
         } catch(Exception e){
             System.out.println("Issue connecting to the postgresql db.");
+            e.printStackTrace();
         }
         
         Window win = new Window();
