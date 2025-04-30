@@ -23,6 +23,10 @@ public class EnvReader {
         return getValue("DBpassword");
     }
     
+    public static String getURL(){
+        return getValue("DBurl");
+    }
+    
     private static String getValue(String key){
         String value = "";
         

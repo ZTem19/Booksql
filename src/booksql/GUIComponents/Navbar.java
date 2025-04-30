@@ -183,6 +183,7 @@ public class Navbar extends javax.swing.JPanel {
         BOOKSEARCH,
         AUTHORSEARCH,
         PUBLISHERSEARCH,
+        DBERROR,
     }
     
     public void addListener(NavbarListener listener){

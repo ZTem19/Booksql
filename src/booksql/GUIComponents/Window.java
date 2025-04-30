@@ -4,6 +4,7 @@
  */
 package booksql.GUIComponents;
 
+import booksql.DatabaseAccess;
 import booksql.GUIComponents.Navbar.View;
 import booksql.GUIComponents.Views.*;
 import java.awt.BorderLayout;
@@ -17,6 +18,8 @@ import javax.swing.JPanel;
  * @author zander
  */
 public class Window extends javax.swing.JFrame implements NavbarListener{
+    
+    private String dbURL, dbUsername, dbPassword;
 
     private Navbar nav;
     private JPanel currentView;
@@ -24,16 +27,23 @@ public class Window extends javax.swing.JFrame implements NavbarListener{
     /**
      * Creates new form Window
      */
-    public Window() {
+    public Window(String url, String name, String password) {
         initComponents();
-        this.views = new HashMap<>(7);
-        initViews();
         
-        this.nav = new Navbar();
-        this.add(this.nav, BorderLayout.WEST);
-        this.nav.addListener(this);
-        
-        changeVeiw(View.HOME);
+        this.dbURL = url;
+        this.dbUsername = name;
+        this.dbPassword = password;
+        if(initDB()){               //Only addd navbar and other views if db connection is ok
+            this.nav = new Navbar();
+            this.add(this.nav, BorderLayout.WEST);
+            this.nav.addListener(this);
+
+
+            this.views = new HashMap<>(7);
+            initViews();
+
+            changeVeiw(View.HOME);
+        }
     }
     
     private void initViews(){
@@ -57,11 +67,9 @@ public class Window extends javax.swing.JFrame implements NavbarListener{
         if(newView != null){
             if(this.currentView != null){
                 this.remove(currentView);
-                System.out.println("Removed View :" + this.currentView.toString());
             }
             this.add(newView, BorderLayout.CENTER);
             this.currentView = newView;
-            System.out.println("Changed view to : " + this.currentView.toString());
         }
         else{
             System.out.println("Unable to find view: " + v.name());
@@ -90,39 +98,24 @@ public class Window extends javax.swing.JFrame implements NavbarListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Window.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private boolean initDB() {
+        try 
+        {
+            Class.forName("org.postgresql.Driver");
+            System.out.println("Loaded Driver");
+            
+            DatabaseAccess.init(this.dbURL, this.dbUsername, this.dbPassword);
+            System.out.println("Made connection");
+            
+            return true;
+            
+        } catch(Exception e){
+            System.out.println("Issue connecting to the postgresql db.");
+            e.printStackTrace();
+            this.add(new DBError(this.dbURL, this.dbUsername, this.dbPassword), BorderLayout.CENTER);
+            return false;
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Window().setVisible(true);
-            }
-        });
+        
     }
 
 
