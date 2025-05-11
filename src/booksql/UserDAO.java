@@ -54,38 +54,63 @@ public class UserDAO {
 //            ResultSet rs = stmt.executeQuery(selectAllUsers);
             StringBuilder strBuilder = new StringBuilder(selectAllUsers);
             
-            if(!filter.fname.isBlank()){
-                strBuilder.append("");
+            boolean fnameBlank = filter.fname.isBlank();
+            boolean lnameBlank = filter.lname.isBlank();
+            
+            if(!fnameBlank){
+                strBuilder.append(" where lower(fname) like ?");
             }
-            if(!filter.lname.isBlank()){
-                strBuilder.append("");
+            if(!lnameBlank){
+                if(!fnameBlank){
+                    strBuilder.append(" and lower(lname) like ?");
+                }else{
+                    strBuilder.append(" where lower(lname) like ?");                 
+                }
             }
             
             if(filter.balanceSort != null || filter.idSort != null || filter.numBooksSort != null){
-                strBuilder.append("order by ");
+                strBuilder.append(" order by ");
                 if(filter.idSort != null){
                     strBuilder.append("userid ").append((filter.idSort ? "asc" : "desc"));
                 }
-                else if(filter.numBooksSort != null){
-                    strBuilder.append("").append((filter.idSort ? "asc" : "desc"));
+                if(filter.numBooksSort != null){
+                    if(filter.idSort != null){
+                        strBuilder.append(",");
+                    }
+                    strBuilder.append("num_books_checked_out ").append((filter.numBooksSort ? "asc" : "desc"));
                 }
-                else if(filter.balanceSort != null){
-                    strBuilder.append("userid ").append((filter.idSort ? "asc" : "desc"));
+                if(filter.balanceSort != null){
+                    if(filter.idSort != null || filter.numBooksSort != null){
+                        strBuilder.append(",");
+                    }
+                    strBuilder.append("balance ").append((filter.balanceSort ? "asc" : "desc"));
                 }
             }
-            PreparedStatement pstmt = conn.prepareStatement(strBuilder.append(";").toString());
+            strBuilder.append(";");
+            String str = strBuilder.toString();
+            PreparedStatement pstmt = conn.prepareStatement(str);
+            
+            int paraIndex = 1;
+            if(!fnameBlank){
+                pstmt.setString(paraIndex++, filter.fname + '%');
+            }
+            if(!lnameBlank){
+                pstmt.setString(paraIndex++, filter.lname + '%');
+            }
+            System.out.println(pstmt.toString());
             ResultSet rs = pstmt.executeQuery();
             
             
             while(rs.next()){
                 users.add(new User(
-                        rs.getInt("userid"),
+                        Integer.parseInt(rs.getString("userid")),
                         rs.getString("fname"),
                         rs.getString("middle_inital").charAt(0),
                         rs.getString("lname"),
                         rs.getInt("num_books_checked_out"),
                         new BigDecimal(rs.getString("balance").replaceAll("[$,]",""))
                 ));
+                System.out.println(users.getLast().id);
             }
             
         } catch(Exception e) {
@@ -139,12 +164,6 @@ public class UserDAO {
             this.lname = lname;
             this.numBooksSort = numBooksSort;
             this.balanceSort = balanceSort;
-        }
-        
-        public int getOrderByCount(){
-            if(this.balanceSort != null || this.idSort != null || this.numBooksSort != null){
-                
-            }
         }
     }
     

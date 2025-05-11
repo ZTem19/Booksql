@@ -103,12 +103,14 @@ public class UserLookUpView extends javax.swing.JPanel {
                 }
                 break;
             default:
-                System.out.println(i);
         }
+        loadUsers();
     }
     
     
     private void loadUsers(){
+        this.clearUsers();
+        
         ArrayList<User> users= this.userDAO.getBooksWithFilter(this.filter);
         for(User u : users){
             this.tableModel.addRow(new Object[] {
@@ -120,6 +122,11 @@ public class UserLookUpView extends javax.swing.JPanel {
                 u.balance
             });
         }
+    }
+    
+    private void clearUsers(){
+        this.tableModel.setRowCount(0);
+        this.revalidate();
     }
 
     /**
@@ -138,6 +145,8 @@ public class UserLookUpView extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         firstNameInput = new javax.swing.JTextField();
+        lastNameInput = new javax.swing.JTextField();
+        clearFilterBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 81, 128));
         setPreferredSize(new java.awt.Dimension(2000, 2000));
@@ -159,7 +168,7 @@ public class UserLookUpView extends javax.swing.JPanel {
         ));
         userTable.setFocusTraversalPolicyProvider(true);
         userTable.setMaximumSize(new java.awt.Dimension(2147483647, 800));
-        userTable.setPreferredSize(new java.awt.Dimension(400, 200));
+        userTable.setPreferredSize(new java.awt.Dimension(800, 800));
         userTable.setRowMargin(5);
         jScrollPane1.setViewportView(userTable);
 
@@ -180,6 +189,19 @@ public class UserLookUpView extends javax.swing.JPanel {
             }
         });
 
+        lastNameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastNameInputActionPerformed(evt);
+            }
+        });
+
+        clearFilterBtn.setText("Clear Filters");
+        clearFilterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearFilterBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -193,14 +215,18 @@ public class UserLookUpView extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usersTitle)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(537, 537, 537)
-                                .addComponent(jLabel3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(firstNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(firstNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(lastNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(clearFilterBtn))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 1050, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -212,13 +238,14 @@ public class UserLookUpView extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(firstNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                    .addComponent(firstNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(lastNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(clearFilterBtn))
+                .addGap(47, 47, 47)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1311, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(addUserBtn, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1271, Short.MAX_VALUE)
+                .addComponent(addUserBtn)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -228,16 +255,30 @@ public class UserLookUpView extends javax.swing.JPanel {
     }//GEN-LAST:event_addUserBtnActionPerformed
 
     private void firstNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameInputActionPerformed
-        // TODO add your handling code here:
+        this.filter.fname = this.firstNameInput.getText();
+        loadUsers();
     }//GEN-LAST:event_firstNameInputActionPerformed
+
+    private void lastNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameInputActionPerformed
+        this.filter.lname = this.lastNameInput.getText();
+        loadUsers();
+    }//GEN-LAST:event_lastNameInputActionPerformed
+
+    private void clearFilterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFilterBtnActionPerformed
+        this.firstNameInput.setText("");
+        this.lastNameInput.setText("");
+        this.filter = new Filter();
+    }//GEN-LAST:event_clearFilterBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addUserBtn;
+    private javax.swing.JButton clearFilterBtn;
     private javax.swing.JTextField firstNameInput;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField lastNameInput;
     private javax.swing.JTable userTable;
     private javax.swing.JLabel usersTitle;
     // End of variables declaration//GEN-END:variables
