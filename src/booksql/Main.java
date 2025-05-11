@@ -6,6 +6,10 @@ package booksql;
 
 import booksql.GUIComponents.Window;
 import java.sql.*;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import booksql.GUIComponents.Views.BookSearchView;
+import booksql.forms.BookDisplay;
 
 /**
  *
@@ -20,9 +24,12 @@ public class Main {
         System.out.println("We love books books books.\n--------------------------");
         
         String jdbcUrl = EnvReader.getURL();
+        String jdbcUrl = EnvReader.getURL();
         String username = EnvReader.getUsername();
         String password = EnvReader.getPassword();
         
+        Window win = new Window(jdbcUrl, username, password);
+        win.setVisible(true);
         Window win = new Window(jdbcUrl, username, password);
         win.setVisible(true);
         

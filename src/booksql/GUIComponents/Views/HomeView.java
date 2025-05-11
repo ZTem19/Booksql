@@ -4,6 +4,11 @@
  */
 package booksql.GUIComponents.Views;
 
+import javax.swing.BorderFactory;
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.plaf.basic.BasicTextFieldUI;
+
 /**
  *
  * @author zander
@@ -15,6 +20,8 @@ public class HomeView extends javax.swing.JPanel {
      */
     public HomeView() {
         initComponents();
+        jTextArea1.setBorder(BorderFactory.createEmptyBorder()); 
+        jTextArea1.setCaretColor(Color.BLACK);
     }
 
     /**
@@ -26,32 +33,53 @@ public class HomeView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setBackground(new java.awt.Color(102, 255, 102));
 
-        jLabel1.setText("This is the home view1");
+        label1.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
+        label1.setText("Welcome to Book SQL");
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(102, 255, 102));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("This Java Swing-based library management application is a desktop software system developed to provide efficient access to a digital book catalog for library administrators. The system allows users to search for and check out books, view availability, and browse detailed book information through a graphical user interface. Built using Java and connected to a relational SQL database, the application ensures persistent, structured data storage and retrieval. \n\nEach book entry in the catalog is associated with a set of metadata fields, including the id, title, genre, description, and the number of copies available, total, and have been checked out. The relational database schema is designed to normalize data efficiently, using foreign key constraints to manage relationships between tables such as Books, Authors, Publishers, and Users. This allows the system to support complex queries—for example, finding all books by a with a sepicific titile, a specific author, or a specific genre. The system tracks both the total number of copies and the number of copies currently available, ensuring real-time availability status for each title. \n\nThe graphical user interface (GUI) is built with Java Swing components and organized to provide a responsive, user-friendly experience. A central table view displays all books in the catalog, with filtering and capabilities. Pop-up dialogs are used for adding and editing book records, with built-in validation to prevent incomplete or incorrect data submissions. In addition to the book catalog, the application provides separate views for managing and viewing records in the Authors, Publishers, and Users tables, and the ability to see which books are checked out to which users.\n\n");
+        jTextArea1.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel1)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(283, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(270, 270, 270))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(jLabel1)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }
