@@ -67,7 +67,15 @@ public class BookAdd extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Error loading publishers: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
         
-        authorTableModel = new DefaultTableModel();
+        authorTableModel = new DefaultTableModel() 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column) 
+            {
+                String columnName = getColumnName(column);
+                return columnName.equals("Delete");
+            }
+        };
         authorTableModel.setColumnIdentifiers
         (new String[] {"First Name", "Last Name", "Birth Date", "Delete"});
         author_table.setModel(authorTableModel);
@@ -390,7 +398,8 @@ public class BookAdd extends javax.swing.JDialog {
             numTotalCopies,
             numAvailableCopies,
             publisherId,
-            datePublished
+            datePublished,
+            0
         );
         
         if(authors.size() <= 0)
