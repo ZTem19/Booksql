@@ -31,11 +31,20 @@ public class BookSearchView extends javax.swing.JPanel{
      */
     public BookSearchView() {
         initComponents();
+        tableModel = new DefaultTableModel() 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column) 
+            {
+                // Get column name by index and allow only "Edit" and "Delete" to be editable
+                String columnName = getColumnName(column);
+                return columnName.equals("Edit") || columnName.equals("Delete");
+            }
+        };
         
-        tableModel = new DefaultTableModel();
         tableModel.setColumnIdentifiers
         (new String[] {"ID", "Title", "Authors", "Genre", "Description", 
-            "Total Copies", "Available Copies", "Publisher Name", "Date Published", "Edit", "Delete"});
+            "Total Copies", "Available Copies", "Copies Checked Out", "Publisher Name", "Date Published", "Edit", "Delete"});
         //bookTable = new javax.swing.JTable();
         bookTable.setModel(tableModel);
         bookTable.getColumn("Edit").setCellRenderer(new EditButtonRenderer());
@@ -53,9 +62,10 @@ public class BookSearchView extends javax.swing.JPanel{
         columnModel.getColumn(4).setPreferredWidth(300);  
         columnModel.getColumn(5).setPreferredWidth(100);  
         columnModel.getColumn(6).setPreferredWidth(100);  
-        columnModel.getColumn(7).setPreferredWidth(100);  
-        columnModel.getColumn(8).setPreferredWidth(75);   
+        columnModel.getColumn(7).setPreferredWidth(100);
+        columnModel.getColumn(8).setPreferredWidth(75); 
         columnModel.getColumn(9).setPreferredWidth(75);   
+        columnModel.getColumn(10).setPreferredWidth(75);   
         
         loadBooks();
 
@@ -259,6 +269,7 @@ public class BookSearchView extends javax.swing.JPanel{
                     b.getDescription(),
                     b.getNumTotal(),
                     b.getNumAvailable(),
+                    b.getNumCheckedOut(),
                     b.getPublisherName(),
                     b.getDatePublished(),
                 });
@@ -291,6 +302,7 @@ public class BookSearchView extends javax.swing.JPanel{
                     b.getDescription(),
                     b.getNumTotal(),
                     b.getNumAvailable(),
+                    b.getNumCheckedOut(),
                     b.getPublisherName(),
                     b.getDatePublished(),
                 });

@@ -21,10 +21,11 @@ public class Book {
     private int numAvailable;
     private int publisherId;
     private Date datePublished;
+    private int numCheckedOut;
 
     // Constructor
     public Book(int bookId, String title, String description, String genre, 
-                int numTotal, int numAvailable, int publisherId, Date datePublished) {
+                int numTotal, int numAvailable, int publisherId, Date datePublished, int numCheckedOut) {
         this.bookId = bookId;
         this.title = title;
         this.description = description;
@@ -33,6 +34,7 @@ public class Book {
         this.numAvailable = numAvailable;
         this.publisherId = publisherId;
         this.datePublished = datePublished;
+        this.numCheckedOut = numCheckedOut;
     }
     
     public Book() {}
@@ -101,6 +103,14 @@ public class Book {
     public void setDatePublished(Date datePublished) {
         this.datePublished = datePublished;
     }
+    
+    public int getNumCheckedOut(){
+        return numCheckedOut;
+    }
+    
+    public void setNumCheckedOut(int numCheckedOut){
+        this.numCheckedOut = numCheckedOut;
+    }
 
     @Override
     public String toString() {
@@ -113,6 +123,7 @@ public class Book {
                 ", availableCopies=" + numAvailable +
                 ", publisherId=" + publisherId +
                 ", datePublished=" + datePublished +
+                ", numCheckedOut=" + numCheckedOut +
                 '}';
     }
 }
