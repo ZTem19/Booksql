@@ -4,17 +4,122 @@
  */
 package booksql.GUIComponents.Views;
 
+import booksql.DatabaseAccess;
+import booksql.UserDAO;
+import booksql.UserDAO.Filter;
+import booksql.UserDAO.User;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.Set;
+import javax.swing.JCheckBox;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author zander
  */
 public class UserLookUpView extends javax.swing.JPanel {
 
+    private DefaultTableModel tableModel;
+    private UserDAO userDAO;
+    private Filter filter;
+    
+    
     /**
      * Creates new form UserLookUpView
      */
     public UserLookUpView() {
         initComponents();
+        this.userDAO = DatabaseAccess.getUserDao();
+        this.filter = new Filter();
+        
+        tableModel = new DefaultTableModel();
+        tableModel.setColumnIdentifiers
+        (new String[] {"ID", "First Name", "Middle Initial", "Last Name", "Number of books checked out", 
+            "Balance" });
+        
+        //bookTable = new javax.swing.JTable();
+        userTable.setModel(tableModel);
+        userTable.setRowHeight(25);
+        userTable.setMaximumSize(new Dimension(2000, 2000));
+        
+        
+        TableColumnModel columnModel = userTable.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(75);   
+        columnModel.getColumn(1).setPreferredWidth(200);
+        columnModel.getColumn(2).setPreferredWidth(75);  
+        columnModel.getColumn(3).setPreferredWidth(200);  
+        columnModel.getColumn(4).setPreferredWidth(200);  
+        columnModel.getColumn(5).setPreferredWidth(150);
+        
+        JTableHeader tableHeader = userTable.getTableHeader();
+        tableHeader.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                int col = userTable.columnAtPoint(me.getPoint());
+                headerSort(col);
+            }
+        });
+        
+        
+        loadUsers();
+    }
+    
+    private void headerSort(int i){
+        // Change filter based on current states
+        switch(i){
+            case 0:
+                if(this.filter.idSort == null){
+                    this.filter.idSort = true;
+                }else if(this.filter.idSort == true){
+                    this.filter.idSort = false;
+                }else {
+                    this.filter.idSort = null;
+                }
+                break;
+                
+            case 4:
+                if(this.filter.numBooksSort == null){
+                    this.filter.numBooksSort = true;
+                }else if(this.filter.numBooksSort == true){
+                    this.filter.numBooksSort = false;
+                }else {
+                    this.filter.numBooksSort = null;
+                }
+                break;
+            
+            case 5:
+                if(this.filter.balanceSort == null){
+                    this.filter.balanceSort = true;
+                }else if(this.filter.balanceSort == true){
+                    this.filter.balanceSort = false;
+                }else {
+                    this.filter.balanceSort = null;
+                }
+                break;
+            default:
+                System.out.println(i);
+        }
+    }
+    
+    
+    private void loadUsers(){
+        ArrayList<User> users= this.userDAO.getBooksWithFilter(this.filter);
+        for(User u : users){
+            this.tableModel.addRow(new Object[] {
+                u.id,
+                u.fname,
+                u.middleInitial,
+                u.lname,
+                u.numOfBooks,
+                u.balance
+            });
+        }
     }
 
     /**
@@ -26,32 +131,115 @@ public class UserLookUpView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        usersTitle = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        userTable = new javax.swing.JTable();
+        addUserBtn = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        firstNameInput = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(255, 0, 0));
+        setBackground(new java.awt.Color(52, 81, 128));
+        setPreferredSize(new java.awt.Dimension(2000, 2000));
 
-        jLabel1.setText("User Lookup View");
+        usersTitle.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
+        usersTitle.setForeground(new java.awt.Color(0, 0, 0));
+        usersTitle.setText("Users");
+
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        userTable.setFocusTraversalPolicyProvider(true);
+        userTable.setMaximumSize(new java.awt.Dimension(2147483647, 800));
+        userTable.setPreferredSize(new java.awt.Dimension(400, 200));
+        userTable.setRowMargin(5);
+        jScrollPane1.setViewportView(userTable);
+
+        addUserBtn.setText("Add User");
+        addUserBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addUserBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Search by First Name");
+
+        jLabel3.setText("Search By Last Name");
+
+        firstNameInput.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstNameInputActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel1)
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(addUserBtn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(usersTitle)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(537, 537, 537)
+                                .addComponent(jLabel3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(firstNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 1050, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jLabel1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(usersTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(firstNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1311, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(addUserBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addUserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addUserBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addUserBtnActionPerformed
+
+    private void firstNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameInputActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_firstNameInputActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton addUserBtn;
+    private javax.swing.JTextField firstNameInput;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable userTable;
+    private javax.swing.JLabel usersTitle;
     // End of variables declaration//GEN-END:variables
+
 }

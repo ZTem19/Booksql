@@ -74,7 +74,7 @@ public class Navbar extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(200, 600));
         setRequestFocusEnabled(false);
 
-        navBarPanel.setBackground(new java.awt.Color(255, 153, 0));
+        navBarPanel.setBackground(new java.awt.Color(255, 255, 255));
         navBarPanel.setForeground(new java.awt.Color(255, 255, 255));
         navBarPanel.setPreferredSize(new java.awt.Dimension(200, 2000));
         navBarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
