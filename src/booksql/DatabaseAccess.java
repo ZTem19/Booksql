@@ -16,6 +16,7 @@ public class DatabaseAccess
     private static BookDAO bookDAO;
     private static PublisherDAO publisherDAO;
     private static AuthorDAO authorDAO;
+    private static UserDAO userDAO;
 
     public static void init(String url, String username, String password) throws SQLException {
         if (conn == null) {
@@ -23,7 +24,12 @@ public class DatabaseAccess
             bookDAO = new BookDAO(conn);
             publisherDAO = new PublisherDAO(conn);
             authorDAO = new AuthorDAO(conn);
+            userDAO = new UserDAO(conn);
         }
+    }
+    
+    public static UserDAO getUserDao(){
+        return userDAO;
     }
 
     public static BookDAO getBookDAO() {

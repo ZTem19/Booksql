@@ -32,6 +32,8 @@ nbproject/Makefile-*.mk
 **/nbproject/Package-*.bash
 nbproject/Package-*.bash
 
+lib/*
+
 build/
 nbbuild/
 dist/
