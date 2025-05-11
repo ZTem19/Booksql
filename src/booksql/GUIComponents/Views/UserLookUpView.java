@@ -147,6 +147,7 @@ public class UserLookUpView extends javax.swing.JPanel {
         firstNameInput = new javax.swing.JTextField();
         lastNameInput = new javax.swing.JTextField();
         clearFilterBtn = new javax.swing.JButton();
+        saveChangesBtn = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(52, 81, 128));
         setPreferredSize(new java.awt.Dimension(2000, 2000));
@@ -188,10 +189,26 @@ public class UserLookUpView extends javax.swing.JPanel {
                 firstNameInputActionPerformed(evt);
             }
         });
+        firstNameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                firstNameInputKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                firstNameInputKeyTyped(evt);
+            }
+        });
 
         lastNameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lastNameInputActionPerformed(evt);
+            }
+        });
+        lastNameInput.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                lastNameInputKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                lastNameInputKeyReleased(evt);
             }
         });
 
@@ -202,6 +219,13 @@ public class UserLookUpView extends javax.swing.JPanel {
             }
         });
 
+        saveChangesBtn.setText("Save Changes");
+        saveChangesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveChangesBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,9 +233,6 @@ public class UserLookUpView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(addUserBtn))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(usersTitle)
@@ -227,7 +248,12 @@ public class UserLookUpView extends javax.swing.JPanel {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(clearFilterBtn))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 938, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 1050, Short.MAX_VALUE)))
+                        .addGap(0, 1050, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addUserBtn, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(saveChangesBtn, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -243,10 +269,12 @@ public class UserLookUpView extends javax.swing.JPanel {
                     .addComponent(lastNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(clearFilterBtn))
                 .addGap(47, 47, 47)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1271, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1247, Short.MAX_VALUE)
+                .addComponent(saveChangesBtn)
+                .addGap(18, 18, 18)
                 .addComponent(addUserBtn)
-                .addContainerGap())
+                .addGap(12, 12, 12))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -255,20 +283,41 @@ public class UserLookUpView extends javax.swing.JPanel {
     }//GEN-LAST:event_addUserBtnActionPerformed
 
     private void firstNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstNameInputActionPerformed
-        this.filter.fname = this.firstNameInput.getText();
-        loadUsers();
+        
     }//GEN-LAST:event_firstNameInputActionPerformed
 
     private void lastNameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastNameInputActionPerformed
-        this.filter.lname = this.lastNameInput.getText();
-        loadUsers();
+        
     }//GEN-LAST:event_lastNameInputActionPerformed
 
     private void clearFilterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearFilterBtnActionPerformed
         this.firstNameInput.setText("");
         this.lastNameInput.setText("");
         this.filter = new Filter();
+        this.loadUsers();
     }//GEN-LAST:event_clearFilterBtnActionPerformed
+
+    private void saveChangesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveChangesBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveChangesBtnActionPerformed
+
+    private void firstNameInputKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameInputKeyTyped
+        
+    }//GEN-LAST:event_firstNameInputKeyTyped
+
+    private void firstNameInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_firstNameInputKeyReleased
+        this.filter.fname = this.firstNameInput.getText();
+        loadUsers();
+    }//GEN-LAST:event_firstNameInputKeyReleased
+
+    private void lastNameInputKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lastNameInputKeyPressed
+        
+    }//GEN-LAST:event_lastNameInputKeyPressed
+
+    private void lastNameInputKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lastNameInputKeyReleased
+        this.filter.lname = this.lastNameInput.getText();
+        loadUsers();
+    }//GEN-LAST:event_lastNameInputKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -279,6 +328,7 @@ public class UserLookUpView extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lastNameInput;
+    private javax.swing.JButton saveChangesBtn;
     private javax.swing.JTable userTable;
     private javax.swing.JLabel usersTitle;
     // End of variables declaration//GEN-END:variables
