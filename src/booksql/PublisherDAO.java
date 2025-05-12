@@ -91,4 +91,38 @@ public void updatePublisher(Publisher publisher) throws SQLException {
         }
         return publishers;
     }
+    public ArrayList<Publisher> searchPublishers(String name, String email) throws SQLException {
+    ArrayList<Publisher> publishers = new ArrayList<>();
+
+    StringBuilder sql = new StringBuilder("SELECT * FROM publisher WHERE 1=1");
+    if (name != null && !name.trim().isEmpty()) {
+        sql.append(" AND name ILIKE ?");
+    }
+    if (email != null && !email.trim().isEmpty()) {
+        sql.append(" AND email ILIKE ?");
+    }
+
+    PreparedStatement stmt = conn.prepareStatement(sql.toString());
+
+    int paramIndex = 1;
+    if (name != null && !name.trim().isEmpty()) {
+        stmt.setString(paramIndex++, "%" + name.trim() + "%");
+    }
+    if (email != null && !email.trim().isEmpty()) {
+        stmt.setString(paramIndex++, "%" + email.trim() + "%");
+    }
+
+    ResultSet rs = stmt.executeQuery();
+    while (rs.next()) {
+        publishers.add(new Publisher(
+            rs.getInt("publisher_id"),
+            rs.getString("name"),
+            rs.getDate("date_founded"),
+            rs.getString("email")
+        ));
+    }
+
+    return publishers;
+}
+
 }
