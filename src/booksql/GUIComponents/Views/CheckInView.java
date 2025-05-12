@@ -4,11 +4,31 @@
  */
 package booksql.GUIComponents.Views;
 
+import booksql.UserDAO;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author zander
  */
 public class CheckInView extends javax.swing.JPanel {
+    
+    private DefaultTableModel tableModel;
+    private JTableHeader tableHeader;
+    private UserDAO checkDAO;
+    private UserDAO.Filter filter;
+    private HashMap<Integer, String> colNames = new HashMap(Map.ofEntries(
+            Map.entry(0, "ID"),
+            Map.entry(1, "First Name"),
+            Map.entry(2, "Middle Initial"),
+            Map.entry(3, "Last Name"),
+            Map.entry(4, "Number of Books Checked Out"),
+            Map.entry(5, "Balance"),
+            Map.entry(6, "Delete")
+    ));
 
     /**
      * Creates new form CheckInView
