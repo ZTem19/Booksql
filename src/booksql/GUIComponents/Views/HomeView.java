@@ -4,9 +4,11 @@
  */
 package booksql.GUIComponents.Views;
 
+import booksql.assets.ImageLoader;
 import javax.swing.BorderFactory;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import javax.swing.plaf.basic.BasicTextFieldUI;
 
 /**
@@ -22,6 +24,14 @@ public class HomeView extends javax.swing.JPanel {
         initComponents();
         jTextArea1.setBorder(BorderFactory.createEmptyBorder()); 
         jTextArea1.setCaretColor(Color.BLACK);
+        
+        try{ 
+            this.logoHolder.setSize(500, 300);
+            this.logoHolder.setText("");
+            this.logoHolder.setIcon(ImageLoader.loadIcon(ImageLoader.LIBRARYURL, this.logoHolder.getWidth(), this.logoHolder.getHeight()));
+        } catch(IOException io){
+            io.printStackTrace();
+        }
     }
 
     /**
@@ -36,6 +46,7 @@ public class HomeView extends javax.swing.JPanel {
         label1 = new java.awt.Label();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        logoHolder = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 255, 102));
 
@@ -52,26 +63,36 @@ public class HomeView extends javax.swing.JPanel {
         jTextArea1.setWrapStyleWord(true);
         jScrollPane1.setViewportView(jTextArea1);
 
+        logoHolder.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(283, Short.MAX_VALUE)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(270, 270, 270))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 857, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(324, 324, 324))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(212, 212, 212)
+                .addComponent(logoHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(logoHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -81,5 +102,6 @@ public class HomeView extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private java.awt.Label label1;
+    private javax.swing.JLabel logoHolder;
     // End of variables declaration//GEN-END:variables
 }

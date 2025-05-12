@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
  */
 public class ImageLoader {
     public static final String LOGOURL = "src/booksql/assets/logo.png";
+    public static final String LIBRARYURL = "src/booksql/assets/ndsulibrary.jpg";
     
     public static BufferedImage loadImage(String url, int width, int height) throws IOException{
         BufferedImage img = null;
