@@ -27,9 +27,9 @@ public class BookDAO {
                 rs.getString("genre"),
                 rs.getInt("num_total"),
                 rs.getInt("num_available"),
-                rs.getInt("publisher_id"),
-                rs.getDate("date_published")
-            );
+                rs.getInt("publisher_id"),           
+                rs.getDate("date_published"),
+                rs.getInt("num_checked_out"));
             books.add(b);
         }
         return books;
@@ -49,7 +49,8 @@ public class BookDAO {
                 rs.getString("genre"),
                 rs.getInt("num_total"),
                 rs.getInt("num_available"),
-                rs.getDate("date_published"),
+                rs.getInt("num_checked_out"),
+                rs.getDate("date_published"), 
                 rs.getString("publisher_name"),
                 rs.getString("author_display")
             );
@@ -97,6 +98,7 @@ public class BookDAO {
                 rs.getString("genre"),
                 rs.getInt("num_total"),
                 rs.getInt("num_available"),
+                rs.getInt("num_checked_out"),
                 rs.getDate("date_published"),
                 rs.getString("publisher_name"),
                 rs.getString("author_display")
@@ -120,8 +122,9 @@ public class BookDAO {
                 rs.getString("genre"),
                 rs.getInt("num_total"),
                 rs.getInt("num_available"),
-                rs.getInt("publisher_id"),
-                rs.getDate("date_published")
+                rs.getInt("publisher_id"),           
+                rs.getDate("date_published"),
+                rs.getInt("num_checked_out")
             );
         } else {
             return null;

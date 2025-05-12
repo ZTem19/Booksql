@@ -51,6 +51,7 @@ public class BookEdit extends javax.swing.JDialog {
         titleText.setText(book.getTitle());
         numTotalText.setText(Integer.toString(book.getNumTotal()));
         numAvailableText.setText(Integer.toString(book.getNumAvailable()));
+        numCheckedOutForBook = book.getNumCheckedOut();
         
         publisherComboBox.removeAllItems();
         addExistingAuthorCombobox.removeAllItems();
@@ -77,7 +78,15 @@ public class BookEdit extends javax.swing.JDialog {
         }
         publisherComboBox.setSelectedIndex(book.getPublisherId() - 1);
         
-        authorTableModel = new DefaultTableModel();
+        authorTableModel = new DefaultTableModel() 
+        {
+            @Override
+            public boolean isCellEditable(int row, int column) 
+            {
+                String columnName = getColumnName(column);
+                return columnName.equals("Delete");
+            }
+        };
         authorTableModel.setColumnIdentifiers
         (new String[] {"Author ID", "First Name", "Last Name", "Birth Date", "Delete"});
         author_table.setModel(authorTableModel);
@@ -406,7 +415,8 @@ public class BookEdit extends javax.swing.JDialog {
             numTotalCopies,
             numAvailableCopies,
             publisherId,
-            datePublished
+            datePublished,
+            numCheckedOutForBook
         );
         
         try 
@@ -552,6 +562,7 @@ public class BookEdit extends javax.swing.JDialog {
     private int id;
     private Book book;
     private DefaultTableModel authorTableModel;
+    private int numCheckedOutForBook;
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
