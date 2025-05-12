@@ -38,6 +38,8 @@ public class DBError extends javax.swing.JPanel {
         nameLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(52, 81, 128));
+
         jLabel1.setText("Error connecting to database");
 
         jLabel2.setText("Url:");

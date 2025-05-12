@@ -48,14 +48,14 @@ public class HomeView extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
         logoHolder = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(0, 102, 51));
+        setBackground(new java.awt.Color(52, 81, 128));
 
         label1.setFont(new java.awt.Font("Times New Roman", 0, 28)); // NOI18N
         label1.setForeground(new java.awt.Color(255, 255, 255));
         label1.setText("Welcome to Book SQL");
 
         jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(0, 102, 51));
+        jTextArea1.setBackground(new java.awt.Color(52, 81, 128));
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));

@@ -41,6 +41,7 @@ public class BookSearchView extends javax.swing.JPanel{
                 return columnName.equals("Edit") || columnName.equals("Delete");
             }
         };
+        this.setBackground(new Color(52,81,128));
         
         tableModel.setColumnIdentifiers
         (new String[] {"ID", "Title", "Authors", "Genre", "Description", 

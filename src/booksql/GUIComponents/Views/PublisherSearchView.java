@@ -264,6 +264,8 @@ public class PublisherSearchView extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         publisherTable = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(52, 81, 128));
+
         addPublisher.setText("Add Publisher");
 
         publisherTable.setName(""); // NOI18N
