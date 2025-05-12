@@ -6,7 +6,7 @@
             <name>Booksql</name>
             <explicit-platform explicit-source-supported="true"/>
             <source-roots>
-                <root id="src.dir"/>
+                <root id="src.src.dir"/>
             </source-roots>
             <test-roots>
                 <root id="test.src.dir"/>
