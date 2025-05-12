@@ -110,7 +110,6 @@ public class UserDAO {
                         rs.getInt("num_books_checked_out"),
                         new BigDecimal(rs.getString("balance").replaceAll("[$,]",""))
                 ));
-                System.out.println(users.getLast().id);
             }
             
         } catch(Exception e) {

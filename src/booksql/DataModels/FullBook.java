@@ -19,13 +19,14 @@ public class FullBook {
     private String genre;
     private int numTotal;
     private int numAvailable;
+    private int numCheckedOut;
     private Date datePublished;
     private String publisherName;
     private String authors;
 
     // Constructor
     public FullBook(int bookId, String title, String description, String genre,
-                        int numTotal, int numAvailable, Date datePublished,
+                        int numTotal, int numAvailable, int numCheckedOut, Date datePublished,
                         String publisherName, String authors) {
         this.bookId = bookId;
         this.title = title;
@@ -33,6 +34,7 @@ public class FullBook {
         this.genre = genre;
         this.numTotal = numTotal;
         this.numAvailable = numAvailable;
+        this.numCheckedOut = numCheckedOut;
         this.datePublished = datePublished;
         this.publisherName = publisherName;
         this.authors = authors;
@@ -109,6 +111,16 @@ public class FullBook {
 
     public void setAuthors(String authors) {
         this.authors = authors;
+    }
+    
+    public int getNumCheckedOut()
+    {
+        return numCheckedOut;
+    }
+    
+    public void setNumCheckedOut(int numCheckedOut)
+    {
+        this.numCheckedOut = numCheckedOut;
     }
 }
 
