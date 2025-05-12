@@ -4,9 +4,13 @@ import booksql.CheckDAO;
 import booksql.CheckDAO.CheckedOutEntry;
 import booksql.DatabaseAccess;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -40,24 +44,38 @@ public class CheckOutView extends javax.swing.JPanel {
         
         checkedOutTable.setModel(tableModel);
         checkedOutTable.setRowHeight(25);
+        this.currentDateLable.setText(this.currentDateLable.getText().concat(LocalDate.now().toString()));
+        
+        this.checkedOutTable.setPreferredSize(new Dimension(1000, 600));
+        TableColumnModel columnModel = checkedOutTable.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(75);   
+        columnModel.getColumn(1).setPreferredWidth(250);
+        columnModel.getColumn(2).setPreferredWidth(75);  
+        columnModel.getColumn(3).setPreferredWidth(250);  
+        columnModel.getColumn(4).setPreferredWidth(150);  
+        columnModel.getColumn(5).setPreferredWidth(150);
+        
         
         
         loadRows();
     }
     
     private void loadRows(){
-        for(int i = 0; i < tableModel.getRowCount(); i++){
-            tableModel.removeRow(i);
+        if(this.tableModel == null){
+            return;
         }
         
+        for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
+            tableModel.removeRow(i);
+        }
         
         
         ArrayList<CheckedOutEntry> entries = this.checkDAO.getAllEntries();
         for(CheckedOutEntry entry : entries){
             this.tableModel.addRow(new Object[]{
                 entry.bookid,
-                entry.userid,
                 entry.bookName,
+                entry.userid,
                 entry.userName,
                 entry.checkOutDate,
                 entry.dueDate
@@ -83,16 +101,22 @@ public class CheckOutView extends javax.swing.JPanel {
         errorLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         checkedOutTable = new javax.swing.JTable();
+        currentDateLable = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(52, 81, 128));
 
         jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Check Out View");
 
+        bookIdLabel.setForeground(new java.awt.Color(255, 255, 255));
         bookIdLabel.setText("Book Id:");
 
+        userIdLabel.setForeground(new java.awt.Color(255, 255, 255));
         userIdLabel.setText("User Id:");
 
+        checkOutBtn.setBackground(new java.awt.Color(51, 51, 51));
+        checkOutBtn.setForeground(new java.awt.Color(255, 255, 255));
         checkOutBtn.setText("Check Out");
         checkOutBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,6 +137,10 @@ public class CheckOutView extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(checkedOutTable);
 
+        currentDateLable.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        currentDateLable.setForeground(new java.awt.Color(255, 255, 255));
+        currentDateLable.setText("Current Date: ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -120,43 +148,46 @@ public class CheckOutView extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(111, 111, 111)
-                                .addComponent(checkOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(bookIdLabel)
-                                        .addGap(86, 86, 86))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(bookIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(48, 48, 48)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(35, 35, 35)
-                                        .addComponent(userIdLabel)))))
-                        .addGap(49, 49, 49)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(111, 111, 111)
+                            .addComponent(checkOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(8, 8, 8)
+                            .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(bookIdLabel)
+                                    .addGap(86, 86, 86))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(bookIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(48, 48, 48)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(userIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(35, 35, 35)
+                                    .addComponent(userIdLabel)))))
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(currentDateLable))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(currentDateLable))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(bookIdLabel)
-                            .addComponent(userIdLabel))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookIdLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(userIdLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(bookIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -200,12 +231,19 @@ public class CheckOutView extends javax.swing.JPanel {
         loadRows();
     }//GEN-LAST:event_checkOutBtnActionPerformed
 
-
+    @Override
+    public void addNotify(){
+        super.addNotify();
+        loadRows();
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bookIdInput;
     private javax.swing.JLabel bookIdLabel;
     private javax.swing.JButton checkOutBtn;
     private javax.swing.JTable checkedOutTable;
+    private javax.swing.JLabel currentDateLable;
     private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

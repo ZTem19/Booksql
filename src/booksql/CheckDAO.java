@@ -22,6 +22,8 @@ public class CheckDAO {
     
     private static final String checkOutBook = "insert into checked_out (bookid, userid, checkout_date, due_date) values (?, ?, ?, ?);";
     
+    private static final String checkInBook = "delete from checked_out where bookid = ? and userid = ?;";
+    
             
     private Connection conn;
     
@@ -68,6 +70,23 @@ public class CheckDAO {
             System.out.println(pstmt.toString());
             int numOfAdded = pstmt.executeUpdate();
             System.out.println("Number of entries added: " + numOfAdded);
+
+        }catch(SQLException e){
+            throw e;
+        }
+    }
+    
+    public int checkInBook(int bookID, int userID) throws SQLException{
+        try{
+            PreparedStatement pstmt = this.conn.prepareStatement(checkInBook);
+
+            pstmt.setInt(1, bookID);
+            pstmt.setInt(2, userID);
+
+            System.out.println(pstmt.toString());
+            int numOfRemoved = pstmt.executeUpdate();
+            System.out.println("Number of entries Removed: " + numOfRemoved);
+            return numOfRemoved;
 
         }catch(SQLException e){
             throw e;
