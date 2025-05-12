@@ -299,6 +299,8 @@ public class PublisherSearchView extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(52, 81, 128));
+
         addPublisher.setText("Add Publisher");
 
         publisherTable.setName(""); // NOI18N
