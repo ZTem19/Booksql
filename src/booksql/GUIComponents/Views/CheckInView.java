@@ -31,7 +31,12 @@ public class CheckInView extends javax.swing.JPanel {
     public CheckInView() {
         initComponents();
         this.checkDAO = DatabaseAccess.getCheckDAO();
-        tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tableModel.setColumnIdentifiers(new Object[] {
             "Book Id",          //index 0
             "Book Name",        //index 1

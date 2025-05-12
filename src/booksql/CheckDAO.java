@@ -24,12 +24,37 @@ public class CheckDAO {
     
     private static final String checkInBook = "delete from checked_out where bookid = ? and userid = ?;";
     
+    private static final String isCopiesAvailable = "select num_available from book where book_id = ?;";
+    
+    private static final String updateBookCopies = "update book set num_available = num_available + ? where book_id = ?;";
+    
+    private static final String updateUserBooks = "update \"user\" set num_books_checked_out = num_books_checked_out + ? where userid = ?;";
+    
             
     private Connection conn;
     
     public CheckDAO(Connection conn){
         this.conn = conn;
     }
+    
+        
+    public boolean canCheckOutBook(int bookID){
+        try{
+            PreparedStatement pstmt = this.conn.prepareStatement(isCopiesAvailable);
+
+            pstmt.setInt(1, bookID);
+
+            System.out.println(pstmt.toString());
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            return rs.getInt("num_available") > 0;
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
     
     public ArrayList<CheckedOutEntry> getAllEntries(){
         ArrayList<CheckedOutEntry> entries = new ArrayList<>();
@@ -70,6 +95,10 @@ public class CheckDAO {
             System.out.println(pstmt.toString());
             int numOfAdded = pstmt.executeUpdate();
             System.out.println("Number of entries added: " + numOfAdded);
+            
+            this.removeCopyFromBook(bookID);
+            this.addBookToUser(userID);
+            
 
         }catch(SQLException e){
             throw e;
@@ -86,10 +115,81 @@ public class CheckDAO {
             System.out.println(pstmt.toString());
             int numOfRemoved = pstmt.executeUpdate();
             System.out.println("Number of entries Removed: " + numOfRemoved);
+            
+            this.removeBookFromUser(userID);
+            this.addCopyToBook(bookID);
+            
             return numOfRemoved;
 
         }catch(SQLException e){
             throw e;
+        }
+    }
+    
+    private void addBookToUser(int userID){
+        try{
+            PreparedStatement pstmt = this.conn.prepareStatement(updateUserBooks);
+
+            pstmt.setInt(1, 1);
+            pstmt.setInt(2, userID);
+
+            System.out.println(pstmt.toString());
+            int numOfUpdated = pstmt.executeUpdate();
+            System.out.println("numOfUpdated: " + numOfUpdated);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void removeBookFromUser(int userID){
+        
+        try{
+            PreparedStatement pstmt = this.conn.prepareStatement(updateUserBooks);
+
+            pstmt.setInt(1, -1);
+            pstmt.setInt(2, userID);
+
+            System.out.println(pstmt.toString());
+            int numOfUpdated = pstmt.executeUpdate();
+            System.out.println("numOfUpdated: " + numOfUpdated);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void addCopyToBook(int bookID){
+        
+        try{
+            PreparedStatement pstmt = this.conn.prepareStatement(updateBookCopies);
+
+            pstmt.setInt(1, 1);
+            pstmt.setInt(2, bookID);
+
+            System.out.println(pstmt.toString());
+            int numOfUpdated = pstmt.executeUpdate();
+            System.out.println("numOfUpdated: " + numOfUpdated);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void removeCopyFromBook(int bookID){
+        
+        try{
+            PreparedStatement pstmt = this.conn.prepareStatement(updateBookCopies);
+
+            pstmt.setInt(1, -1);
+            pstmt.setInt(2, bookID);
+
+            System.out.println(pstmt.toString());
+            int numOfUpdated = pstmt.executeUpdate();
+            System.out.println("numOfUpdated: " + numOfUpdated);
+
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
     

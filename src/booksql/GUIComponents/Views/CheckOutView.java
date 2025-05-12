@@ -32,7 +32,13 @@ public class CheckOutView extends javax.swing.JPanel {
     public CheckOutView() {
         initComponents();
         this.checkDAO = DatabaseAccess.getCheckDAO();
-        tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
         tableModel.setColumnIdentifiers(new Object[] {
             "Book Id",          //index 0
             "Book Name",        //index 1
@@ -54,7 +60,6 @@ public class CheckOutView extends javax.swing.JPanel {
         columnModel.getColumn(3).setPreferredWidth(250);  
         columnModel.getColumn(4).setPreferredWidth(150);  
         columnModel.getColumn(5).setPreferredWidth(150);
-        
         
         
         loadRows();
@@ -207,7 +212,19 @@ public class CheckOutView extends javax.swing.JPanel {
             int bookid = Integer.parseInt(this.bookIdInput.getText().trim());
             int userid = Integer.parseInt(this.userIdInput.getText().trim());
             
-            this.checkDAO.checkOutBook(bookid, userid);
+            if(this.checkDAO.canCheckOutBook(bookid)){
+                this.checkDAO.checkOutBook(bookid, userid);
+                this.bookIdInput.setText("");
+                this.userIdInput.setText("");
+                this.errorLabel.setText("");
+        loadRows();
+            }else {
+                this.errorLabel.setText("No more copies available of this book!");
+            }
+            
+            
+            
+
         }catch(NumberFormatException e){
             this.errorLabel.setText("Book id and user id need to be valid numbers!");
             return;
@@ -225,10 +242,6 @@ public class CheckOutView extends javax.swing.JPanel {
           }
             return;
         }
-        this.bookIdInput.setText("");
-        this.userIdInput.setText("");
-        this.errorLabel.setText("");
-        loadRows();
     }//GEN-LAST:event_checkOutBtnActionPerformed
 
     @Override

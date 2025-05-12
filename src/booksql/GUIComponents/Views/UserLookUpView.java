@@ -60,7 +60,15 @@ public class UserLookUpView extends javax.swing.JPanel {
         this.userDAO = DatabaseAccess.getUserDao();
         this.filter = new Filter();
         
-        tableModel = new DefaultTableModel();
+        tableModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                if(column == 0 || column == 4){
+                    return false;
+                }
+                return true;
+            }
+        };
         
         userTable.setModel(tableModel);
         userTable.setRowHeight(25);
@@ -229,6 +237,12 @@ public class UserLookUpView extends javax.swing.JPanel {
     
     private void handleEdit(User u){
         this.userDAO.editUser(u);
+        loadUsers();
+    }
+    
+    @Override
+    public void addNotify(){
+        super.addNotify();
         loadUsers();
     }
 
