@@ -4,6 +4,13 @@
  */
 package booksql.GUIComponents.Views;
 
+import booksql.assets.ImageLoader;
+import javax.swing.BorderFactory;
+import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
+import javax.swing.plaf.basic.BasicTextFieldUI;
+
 /**
  *
  * @author zander
@@ -15,6 +22,16 @@ public class HomeView extends javax.swing.JPanel {
      */
     public HomeView() {
         initComponents();
+        jTextArea1.setBorder(BorderFactory.createEmptyBorder()); 
+        jTextArea1.setCaretColor(Color.BLACK);
+        
+        try{ 
+            this.logoHolder.setSize(500, 300);
+            this.logoHolder.setText("");
+            this.logoHolder.setIcon(ImageLoader.loadIcon(ImageLoader.LIBRARYURL, this.logoHolder.getWidth(), this.logoHolder.getHeight()));
+        } catch(IOException io){
+            io.printStackTrace();
+        }
     }
 
     /**
@@ -26,32 +43,63 @@ public class HomeView extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        logoHolder = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(102, 255, 102));
+        setBackground(new java.awt.Color(0, 102, 51));
 
-        jLabel1.setText("This is the home view1");
+        label1.setFont(new java.awt.Font("Times New Roman", 0, 28)); // NOI18N
+        label1.setForeground(new java.awt.Color(255, 255, 255));
+        label1.setText("Welcome to Book SQL");
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(0, 102, 51));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("This Java Swing-based library management application is a desktop software system developed to provide efficient access to a digital book catalog for library administrators. The system allows users to search for and check out books, view availability, and browse detailed book information through a graphical user interface. Built using Java and connected to a relational SQL database, the application ensures persistent, structured data storage and retrieval. \n\nEach book entry in the catalog is associated with a set of metadata fields, including the id, title, genre, description, and the number of copies available, total, and have been checked out. The relational database schema is designed to normalize data efficiently, using foreign key constraints to manage relationships between tables such as Books, Authors, Publishers, and Users. This allows the system to support complex queries—for example, finding all books by a with a sepicific titile, a specific author, or a specific genre. The system tracks both the total number of copies and the number of copies currently available, ensuring real-time availability status for each title. \n\nThe graphical user interface (GUI) is built with Java Swing components and organized to provide a responsive, user-friendly experience. A central table view displays all books in the catalog, with filtering and capabilities. Pop-up dialogs are used for adding and editing book records, with built-in validation to prevent incomplete or incorrect data submissions. In addition to the book catalog, the application provides separate views for managing and viewing records in the Authors, Publishers, and Users tables, and the ability to see which books are checked out to which users.\n\n");
+        jTextArea1.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        logoHolder.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel1)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addGap(250, 250, 250)
+                .addComponent(logoHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 300, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 961, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addComponent(jLabel1)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logoHolder, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 414, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private java.awt.Label label1;
+    private javax.swing.JLabel logoHolder;
     // End of variables declaration//GEN-END:variables
 }
