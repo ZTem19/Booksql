@@ -217,7 +217,7 @@ public class CheckOutView extends javax.swing.JPanel {
                 this.bookIdInput.setText("");
                 this.userIdInput.setText("");
                 this.errorLabel.setText("");
-        loadRows();
+                loadRows();
             }else {
                 this.errorLabel.setText("No more copies available of this book!");
             }

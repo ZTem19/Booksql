@@ -26,7 +26,9 @@ public class CheckDAO {
     
     private static final String isCopiesAvailable = "select num_available from book where book_id = ?;";
     
-    private static final String updateBookCopies = "update book set num_available = num_available + ? where book_id = ?;";
+    private static final String checkOutBookCopies = "update book set num_available = num_available + ?, num_checked_out = num_checked_out + 1 where book_id = ?;";
+    
+    private static final String checkInBookCopies = "update book set num_available = num_available + ? where book_id = ?;";
     
     private static final String updateUserBooks = "update \"user\" set num_books_checked_out = num_books_checked_out + ? where userid = ?;";
     
@@ -162,7 +164,7 @@ public class CheckDAO {
     private void addCopyToBook(int bookID){
         
         try{
-            PreparedStatement pstmt = this.conn.prepareStatement(updateBookCopies);
+            PreparedStatement pstmt = this.conn.prepareStatement(checkOutBookCopies);
 
             pstmt.setInt(1, 1);
             pstmt.setInt(2, bookID);
@@ -179,7 +181,7 @@ public class CheckDAO {
     private void removeCopyFromBook(int bookID){
         
         try{
-            PreparedStatement pstmt = this.conn.prepareStatement(updateBookCopies);
+            PreparedStatement pstmt = this.conn.prepareStatement(checkInBookCopies);
 
             pstmt.setInt(1, -1);
             pstmt.setInt(2, bookID);
