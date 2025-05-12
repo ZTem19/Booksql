@@ -54,6 +54,7 @@ public class Window extends javax.swing.JFrame implements NavbarListener{
         this.views.put(View.BOOKSEARCH, new BookSearchView());
         this.views.put(View.AUTHORSEARCH, new AuthorSearchView());
         this.views.put(View.PUBLISHERSEARCH, new PublisherSearchView());
+        this.views.put(View.STATS, new StatsView());
     }
     
     @Override

@@ -49,6 +49,7 @@ public class Navbar extends javax.swing.JPanel {
         this.bookSearchBtn.addActionListener(new NavbarBtnClickListener(View.BOOKSEARCH));
         this.authorSearchBtn.addActionListener(new NavbarBtnClickListener(View.AUTHORSEARCH));
         this.publisherSearchBtn.addActionListener(new NavbarBtnClickListener(View.PUBLISHERSEARCH));
+        this.statsViewBtn.addActionListener(new NavbarBtnClickListener(View.STATS));
     }
 
     /**
@@ -70,12 +71,13 @@ public class Navbar extends javax.swing.JPanel {
         bookSearchBtn = new javax.swing.JButton();
         authorSearchBtn = new javax.swing.JButton();
         publisherSearchBtn = new javax.swing.JButton();
+        statsViewBtn = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(200, 600));
         setRequestFocusEnabled(false);
 
         navBarPanel.setBackground(new java.awt.Color(255, 255, 255));
-        navBarPanel.setForeground(new java.awt.Color(255, 255, 255));
+        navBarPanel.setForeground(new java.awt.Color(0, 0, 0));
         navBarPanel.setPreferredSize(new java.awt.Dimension(200, 2000));
         navBarPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -83,8 +85,8 @@ public class Navbar extends javax.swing.JPanel {
         logoHolder.setPreferredSize(new java.awt.Dimension(200, 200));
         navBarPanel.add(logoHolder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 200));
 
-        homeBtn.setBackground(new java.awt.Color(204, 204, 204));
-        homeBtn.setForeground(new java.awt.Color(51, 51, 51));
+        homeBtn.setBackground(new java.awt.Color(51, 51, 51));
+        homeBtn.setForeground(new java.awt.Color(255, 255, 255));
         homeBtn.setText("Home");
         homeBtn.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         homeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -96,8 +98,8 @@ public class Navbar extends javax.swing.JPanel {
         });
         navBarPanel.add(homeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 188, -1));
 
-        checkOutBtn.setBackground(new java.awt.Color(204, 204, 204));
-        checkOutBtn.setForeground(new java.awt.Color(51, 51, 51));
+        checkOutBtn.setBackground(new java.awt.Color(51, 51, 51));
+        checkOutBtn.setForeground(new java.awt.Color(255, 255, 255));
         checkOutBtn.setText("Check Out Book");
         checkOutBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         checkOutBtn.setPreferredSize(new java.awt.Dimension(146, 40));
@@ -108,29 +110,29 @@ public class Navbar extends javax.swing.JPanel {
         });
         navBarPanel.add(checkOutBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 188, -1));
 
-        checkInBtn.setBackground(new java.awt.Color(204, 204, 204));
-        checkInBtn.setForeground(new java.awt.Color(51, 51, 51));
+        checkInBtn.setBackground(new java.awt.Color(51, 51, 51));
+        checkInBtn.setForeground(new java.awt.Color(255, 255, 255));
         checkInBtn.setText("Check In Book");
         checkInBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         checkInBtn.setPreferredSize(new java.awt.Dimension(146, 40));
         navBarPanel.add(checkInBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 188, -1));
 
-        userLUpBtn.setBackground(new java.awt.Color(204, 204, 204));
-        userLUpBtn.setForeground(new java.awt.Color(51, 51, 51));
+        userLUpBtn.setBackground(new java.awt.Color(51, 51, 51));
+        userLUpBtn.setForeground(new java.awt.Color(255, 255, 255));
         userLUpBtn.setText("User Lookup");
         userLUpBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         userLUpBtn.setPreferredSize(new java.awt.Dimension(146, 40));
         navBarPanel.add(userLUpBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 188, -1));
 
-        bookSearchBtn.setBackground(new java.awt.Color(204, 204, 204));
-        bookSearchBtn.setForeground(new java.awt.Color(51, 51, 51));
+        bookSearchBtn.setBackground(new java.awt.Color(51, 51, 51));
+        bookSearchBtn.setForeground(new java.awt.Color(255, 255, 255));
         bookSearchBtn.setText("Book Search");
         bookSearchBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         bookSearchBtn.setPreferredSize(new java.awt.Dimension(146, 40));
         navBarPanel.add(bookSearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 410, 188, -1));
 
-        authorSearchBtn.setBackground(new java.awt.Color(204, 204, 204));
-        authorSearchBtn.setForeground(new java.awt.Color(51, 51, 51));
+        authorSearchBtn.setBackground(new java.awt.Color(51, 51, 51));
+        authorSearchBtn.setForeground(new java.awt.Color(255, 255, 255));
         authorSearchBtn.setText("Author Search");
         authorSearchBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         authorSearchBtn.setPreferredSize(new java.awt.Dimension(146, 40));
@@ -141,12 +143,18 @@ public class Navbar extends javax.swing.JPanel {
         });
         navBarPanel.add(authorSearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 460, 188, -1));
 
-        publisherSearchBtn.setBackground(new java.awt.Color(204, 204, 204));
-        publisherSearchBtn.setForeground(new java.awt.Color(51, 51, 51));
+        publisherSearchBtn.setBackground(new java.awt.Color(51, 51, 51));
+        publisherSearchBtn.setForeground(new java.awt.Color(255, 255, 255));
         publisherSearchBtn.setText("Publisher Search");
         publisherSearchBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         publisherSearchBtn.setPreferredSize(new java.awt.Dimension(146, 40));
         navBarPanel.add(publisherSearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 510, 188, -1));
+
+        statsViewBtn.setBackground(new java.awt.Color(51, 51, 51));
+        statsViewBtn.setForeground(new java.awt.Color(255, 255, 255));
+        statsViewBtn.setText("View Stats");
+        statsViewBtn.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        navBarPanel.add(statsViewBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 560, 190, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -189,6 +197,7 @@ public class Navbar extends javax.swing.JPanel {
     private javax.swing.JLabel logoHolder;
     private javax.swing.JPanel navBarPanel;
     private javax.swing.JButton publisherSearchBtn;
+    private javax.swing.JButton statsViewBtn;
     private javax.swing.JButton userLUpBtn;
     // End of variables declaration//GEN-END:variables
 
@@ -200,6 +209,7 @@ public class Navbar extends javax.swing.JPanel {
         BOOKSEARCH,
         AUTHORSEARCH,
         PUBLISHERSEARCH,
+        STATS,
         DBERROR,
     }
     
