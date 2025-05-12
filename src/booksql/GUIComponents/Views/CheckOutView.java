@@ -1,5 +1,17 @@
 package booksql.GUIComponents.Views;
 
+import booksql.CheckDAO;
+import booksql.CheckDAO.CheckedOutEntry;
+import booksql.DatabaseAccess;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,12 +22,70 @@ package booksql.GUIComponents.Views;
  * @author zander
  */
 public class CheckOutView extends javax.swing.JPanel {
+    
+    private DefaultTableModel tableModel;
+    private CheckDAO checkDAO;
 
     /**
      * Creates new form CheckOutView
      */
     public CheckOutView() {
         initComponents();
+        this.checkDAO = DatabaseAccess.getCheckDAO();
+        tableModel = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        tableModel.setColumnIdentifiers(new Object[] {
+            "Book Id",          //index 0
+            "Book Name",        //index 1
+            "User Id",          //index 2
+            "User Name",        //index 3
+            "Checkout Date",    //index 4
+            "Due Date"          //index 5
+        });
+        
+        checkedOutTable.setModel(tableModel);
+        checkedOutTable.setRowHeight(25);
+        this.currentDateLable.setText(this.currentDateLable.getText().concat(LocalDate.now().toString()));
+        
+        this.checkedOutTable.setPreferredSize(new Dimension(1000, 600));
+        TableColumnModel columnModel = checkedOutTable.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(75);   
+        columnModel.getColumn(1).setPreferredWidth(250);
+        columnModel.getColumn(2).setPreferredWidth(75);  
+        columnModel.getColumn(3).setPreferredWidth(250);  
+        columnModel.getColumn(4).setPreferredWidth(150);  
+        columnModel.getColumn(5).setPreferredWidth(150);
+        
+        
+        loadRows();
+    }
+    
+    private void loadRows(){
+        if(this.tableModel == null){
+            return;
+        }
+        
+        for (int i = tableModel.getRowCount() - 1; i >= 0; i--) {
+            tableModel.removeRow(i);
+        }
+        
+        
+        ArrayList<CheckedOutEntry> entries = this.checkDAO.getAllEntries();
+        for(CheckedOutEntry entry : entries){
+            this.tableModel.addRow(new Object[]{
+                entry.bookid,
+                entry.bookName,
+                entry.userid,
+                entry.userName,
+                entry.checkOutDate,
+                entry.dueDate
+            });
+        }
     }
 
     /**
@@ -28,31 +98,169 @@ public class CheckOutView extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        bookIdLabel = new javax.swing.JLabel();
+        userIdLabel = new javax.swing.JLabel();
+        bookIdInput = new javax.swing.JTextField();
+        userIdInput = new javax.swing.JTextField();
+        checkOutBtn = new javax.swing.JButton();
+        errorLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        checkedOutTable = new javax.swing.JTable();
+        currentDateLable = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(52, 81, 128));
 
+        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Check Out View");
+
+        bookIdLabel.setForeground(new java.awt.Color(255, 255, 255));
+        bookIdLabel.setText("Book Id:");
+
+        userIdLabel.setForeground(new java.awt.Color(255, 255, 255));
+        userIdLabel.setText("User Id:");
+
+        checkOutBtn.setBackground(new java.awt.Color(51, 51, 51));
+        checkOutBtn.setForeground(new java.awt.Color(255, 255, 255));
+        checkOutBtn.setText("Check Out");
+        checkOutBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkOutBtnActionPerformed(evt);
+            }
+        });
+
+        checkedOutTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(checkedOutTable);
+
+        currentDateLable.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        currentDateLable.setForeground(new java.awt.Color(255, 255, 255));
+        currentDateLable.setText("Current Date: ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1)
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(111, 111, 111)
+                            .addComponent(checkOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(8, 8, 8)
+                            .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(bookIdLabel)
+                                    .addGap(86, 86, 86))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(bookIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(48, 48, 48)))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(userIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(35, 35, 35)
+                                    .addComponent(userIdLabel)))))
+                    .addComponent(jLabel1))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(currentDateLable))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
-                .addComponent(jLabel1)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(currentDateLable))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(bookIdLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(userIdLabel, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bookIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(userIdInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(checkOutBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void checkOutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkOutBtnActionPerformed
+        this.errorLabel.setForeground(Color.red);
+        try{
+            int bookid = Integer.parseInt(this.bookIdInput.getText().trim());
+            int userid = Integer.parseInt(this.userIdInput.getText().trim());
+            
+            if(this.checkDAO.canCheckOutBook(bookid)){
+                this.checkDAO.checkOutBook(bookid, userid);
+                this.bookIdInput.setText("");
+                this.userIdInput.setText("");
+                this.errorLabel.setText("");
+                loadRows();
+            }else {
+                this.errorLabel.setText("No more copies available of this book!");
+            }
+            
+            
+            
 
+        }catch(NumberFormatException e){
+            this.errorLabel.setText("Book id and user id need to be valid numbers!");
+            return;
+        }catch(SQLException e){
+        String message = e.getMessage().toLowerCase();
+
+          if (message.contains("duplicate key value") && message.contains("checked_out_pkey")) {
+              this.errorLabel.setText("Book already checked out by that user!");
+          } else if (message.contains("violates foreign key constraint") && message.contains("checked_out_userid_fkey")) {
+              this.errorLabel.setText("User ID does not reference a valid user!");
+          } else if (message.contains("violates foreign key constraint") && message.contains("checked_out_bookid_fkey")) {
+              this.errorLabel.setText("Book ID does not reference a valid book!");
+          } else {
+              e.printStackTrace();
+          }
+            return;
+        }
+    }//GEN-LAST:event_checkOutBtnActionPerformed
+
+    @Override
+    public void addNotify(){
+        super.addNotify();
+        loadRows();
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bookIdInput;
+    private javax.swing.JLabel bookIdLabel;
+    private javax.swing.JButton checkOutBtn;
+    private javax.swing.JTable checkedOutTable;
+    private javax.swing.JLabel currentDateLable;
+    private javax.swing.JLabel errorLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField userIdInput;
+    private javax.swing.JLabel userIdLabel;
     // End of variables declaration//GEN-END:variables
 }

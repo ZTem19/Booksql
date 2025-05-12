@@ -314,6 +314,12 @@ public class BookSearchView extends javax.swing.JPanel{
         }
     }
     
+    @Override
+    public void addNotify(){
+        super.addNotify();
+        loadBooks();
+    }
+    
     // Variables I declared manually
     private DefaultTableModel tableModel;
     private String titleFilter;
