@@ -29,7 +29,7 @@ public class CheckOutView extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(0, 51, 255));
+        setBackground(new java.awt.Color(52, 81, 128));
 
         jLabel1.setText("Check Out View");
 
