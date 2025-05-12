@@ -415,6 +415,8 @@ public class BookSearchView extends javax.swing.JPanel{
             setText("Delete");
             return this;
         }
+        
+        
     }
 
     class DeleteButtonEditor extends DefaultCellEditor 

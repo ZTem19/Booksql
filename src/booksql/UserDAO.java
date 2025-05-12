@@ -15,7 +15,14 @@ import java.util.ArrayList;
 public class UserDAO {
     
     private static final String selectAllUsers = "select * from \"user\"";
+    private static final String addUserString = "insert into \"user\" (fname, middle_inital, lname, num_books_checked_out, balance) "
+            + "values( ?, ?, ?, 0, 0)";
+    private static final String delUserString = "delete from \"user\" where userid = ?";
+    private static final String updateUserString = "update \"user\" set fname = ?, middle_inital = ?, lname = ?, "
+            + "balance = ? "
+            + "where userid = ?";
     
+            
     private Connection conn;
     
     public UserDAO(Connection conn){
@@ -31,7 +38,7 @@ public class UserDAO {
             
             while(rs.next()){
                 users.add(new User(
-                        rs.getInt("userid"),
+                        rs.getInt(1),
                         rs.getString("fname"),
                         rs.getString("middle_inital").charAt(0),
                         rs.getString("lname"),
@@ -103,14 +110,13 @@ public class UserDAO {
             
             while(rs.next()){
                 users.add(new User(
-                        Integer.parseInt(rs.getString("userid")),
+                        rs.getInt("userid"),
                         rs.getString("fname"),
                         rs.getString("middle_inital").charAt(0),
                         rs.getString("lname"),
                         rs.getInt("num_books_checked_out"),
                         new BigDecimal(rs.getString("balance").replaceAll("[$,]",""))
                 ));
-                System.out.println(users.getLast().id);
             }
             
         } catch(Exception e) {
@@ -120,7 +126,71 @@ public class UserDAO {
        return users;
     }
     
-    public class User {
+    public void addUser(User u) throws IllegalArgumentException{
+                if(u == null){
+            throw new IllegalArgumentException("User cannot be null");
+        }
+        
+        try {
+            String mInitial = Character.toString(u.middleInitial).substring(0, 1);
+            
+            PreparedStatement pstmt = conn.prepareStatement(addUserString);
+            pstmt.setString(1, u.fname);
+            pstmt.setString(2, mInitial);
+            pstmt.setString(3, u.lname);
+            
+            System.out.println(pstmt.toString());
+            int numOfRowsAdded = pstmt.executeUpdate();
+            System.out.println("Number of rows added: " + numOfRowsAdded);
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void editUser(User u){
+        if(u == null){
+            throw new IllegalArgumentException("User cannot be null");
+        }
+        
+        try {
+            String mInitial = Character.toString(u.middleInitial).substring(0, 1);
+            
+            PreparedStatement pstmt = conn.prepareStatement(updateUserString);
+            pstmt.setString(1, u.fname);
+            pstmt.setString(2, mInitial);
+            pstmt.setString(3, u.lname);
+            pstmt.setBigDecimal(4, u.balance);
+            pstmt.setInt(5, u.id);
+            
+            System.out.println(pstmt.toString());
+            int numOfRowsAdded = pstmt.executeUpdate();
+            System.out.println("Number of rows updated: " + numOfRowsAdded);
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteUser(int userId) {
+        try {
+            
+            PreparedStatement pstmt = conn.prepareStatement(delUserString);
+            pstmt.setInt(1, userId);
+
+            System.out.println(pstmt.toString());
+            int numOfRowDeleted = pstmt.executeUpdate();
+            System.out.println("Number of rows deleted: " + numOfRowDeleted);
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public static class User {
         public int id;
         public String fname;
         public char middleInitial;
@@ -129,6 +199,7 @@ public class UserDAO {
         public BigDecimal balance;
         
         public User(int id, String fname, char middleInitial, String lname, int numOfBooks, BigDecimal balance){
+            this.id = id;
             this.fname = fname;
             this.middleInitial = middleInitial;
             this.lname = lname;
