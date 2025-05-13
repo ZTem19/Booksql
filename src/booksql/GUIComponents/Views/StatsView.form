@@ -87,47 +87,42 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jSeparator3" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
+                  <Component id="jSeparator2" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jSeparator2" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="mostCheckedOutLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="leastCheckedOutLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="mostUserLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="mostPopGenreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="leastPopGenreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="mCheckedOutId" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lCheckedOutId" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="mPopGenre" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lPopGenre" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="mCOUserId" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="mCOUserName" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lCheckedOutTitle" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="mCheckedOutTitle" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="mCheckedOutTimes" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="lCheckedOutTimes" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="mCOUserNumBooks" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="mostCheckedOutLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="leastCheckedOutLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mostUserLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mostPopGenreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="leastPopGenreLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="mCheckedOutId" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lCheckedOutId" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
+                          <Component id="mPopGenre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lPopGenre" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mCOUserId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="mCOUserName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lCheckedOutTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mCheckedOutTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="mCheckedOutTimes" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lCheckedOutTimes" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="mCOUserNumBooks" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Component id="jSeparator1" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
                   <Component id="jSeparator4" alignment="0" min="-2" pref="160" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               <Component id="errorLabel" min="-2" pref="91" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="238" max="-2" attributes="0"/>
           </Group>
@@ -175,7 +170,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Id: $"/>
+        <Property name="text" type="java.lang.String" value="Id: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mCheckedOutTitle">
@@ -183,7 +178,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Title: $"/>
+        <Property name="text" type="java.lang.String" value="Title: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mostPopGenreLabel">
@@ -207,7 +202,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Id: $"/>
+        <Property name="text" type="java.lang.String" value="Id: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lCheckedOutTitle">
@@ -215,7 +210,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Title: $"/>
+        <Property name="text" type="java.lang.String" value="Title: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mPopGenre">
@@ -223,7 +218,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Genre: $"/>
+        <Property name="text" type="java.lang.String" value="Genre: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lPopGenre">
@@ -231,7 +226,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Genre: $"/>
+        <Property name="text" type="java.lang.String" value="Genre: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mCOUserId">
@@ -239,7 +234,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Id: $"/>
+        <Property name="text" type="java.lang.String" value="Id: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mCOUserName">
@@ -247,7 +242,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Name: $"/>
+        <Property name="text" type="java.lang.String" value="Name: "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mCheckedOutTimes">
@@ -255,7 +250,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Checked Out : $ times"/>
+        <Property name="text" type="java.lang.String" value="Checked Out : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lCheckedOutTimes">
@@ -263,7 +258,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Checked Out : $ times"/>
+        <Property name="text" type="java.lang.String" value="Checked Out : "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="mCOUserNumBooks">
@@ -271,7 +266,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Has $ Books Checked Out"/>
+        <Property name="text" type="java.lang.String" value="Has: Books Checked Out"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">

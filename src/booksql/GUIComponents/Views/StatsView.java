@@ -68,25 +68,31 @@ public class StatsView extends javax.swing.JPanel {
         }
 
         // set labels here
-        mCheckedOutId.setText(setLabel(mCheckedOutId.getText(), mPopBookId));
+        mCheckedOutId.setText(setLabel(mCheckedOutId.getText(), Integer.toString(mPopBookId)));
         mCheckedOutTitle.setText(setLabel(mCheckedOutTitle.getText(), mPopBookTitle));
-        mCheckedOutTimes.setText(setLabel(mCheckedOutTimes.getText(), mPopBookTimes));
+        mCheckedOutTimes.setText(setLabel(mCheckedOutTimes.getText(), Integer.toString(mPopBookTimes)));
         
-        lCheckedOutId.setText(setLabel(lCheckedOutId.getText(), lPopBookId));
+        lCheckedOutId.setText(setLabel(lCheckedOutId.getText(), Integer.toString(lPopBookId)));
         lCheckedOutTitle.setText(setLabel(lCheckedOutTitle.getText(), lPopBookTitle));
-        lCheckedOutTimes.setText(setLabel(lCheckedOutTimes.getText(), lPopBookTimes));
+        lCheckedOutTimes.setText(setLabel(lCheckedOutTimes.getText(), Integer.toString(lPopBookTimes)));
         
         this.mPopGenre.setText(setLabel(this.mPopGenre.getText(), mPopGenre));
         this.lPopGenre.setText(setLabel(this.lPopGenre.getText(), lPopGenre));
         
-        mCOUserId.setText(setLabel(mCOUserId.getText(), userId));
+        mCOUserId.setText(setLabel(mCOUserId.getText(), Integer.toString(userId)));
         mCOUserName.setText(setLabel(mCOUserName.getText(), userName));
-        mCOUserNumBooks.setText(setLabel(mCOUserNumBooks.getText(), userNumBooks));
+        mCOUserNumBooks.setText(setLabel(mCOUserNumBooks.getText(), Integer.toString(userNumBooks)));
     }
 
     //Sub $ in labels with value
-    private String setLabel(String text, Object item) {
-        return text.replace("$", item.toString());
+    private String setLabel(String text, String replacement) {
+        return text.substring(0, text.indexOf(":") + 1) + " " + replacement;
+    }
+    
+    @Override
+    public void addNotify(){
+        super.addNotify();
+        loadStats();
     }
 
     /**
@@ -138,10 +144,10 @@ public class StatsView extends javax.swing.JPanel {
         mostUserLabel.setText("User with the most checked out Books:");
 
         mCheckedOutId.setForeground(new java.awt.Color(255, 255, 255));
-        mCheckedOutId.setText("Id: $");
+        mCheckedOutId.setText("Id: ");
 
         mCheckedOutTitle.setForeground(new java.awt.Color(255, 255, 255));
-        mCheckedOutTitle.setText("Title: $");
+        mCheckedOutTitle.setText("Title: ");
 
         mostPopGenreLabel.setForeground(new java.awt.Color(255, 255, 255));
         mostPopGenreLabel.setText("Most Popular Genre:");
@@ -150,31 +156,31 @@ public class StatsView extends javax.swing.JPanel {
         leastPopGenreLabel.setText("Least Popular Genre:");
 
         lCheckedOutId.setForeground(new java.awt.Color(255, 255, 255));
-        lCheckedOutId.setText("Id: $");
+        lCheckedOutId.setText("Id: ");
 
         lCheckedOutTitle.setForeground(new java.awt.Color(255, 255, 255));
-        lCheckedOutTitle.setText("Title: $");
+        lCheckedOutTitle.setText("Title: ");
 
         mPopGenre.setForeground(new java.awt.Color(255, 255, 255));
-        mPopGenre.setText("Genre: $");
+        mPopGenre.setText("Genre: ");
 
         lPopGenre.setForeground(new java.awt.Color(255, 255, 255));
-        lPopGenre.setText("Genre: $");
+        lPopGenre.setText("Genre: ");
 
         mCOUserId.setForeground(new java.awt.Color(255, 255, 255));
-        mCOUserId.setText("Id: $");
+        mCOUserId.setText("Id: ");
 
         mCOUserName.setForeground(new java.awt.Color(255, 255, 255));
-        mCOUserName.setText("Name: $");
+        mCOUserName.setText("Name: ");
 
         mCheckedOutTimes.setForeground(new java.awt.Color(255, 255, 255));
-        mCheckedOutTimes.setText("Checked Out : $ times");
+        mCheckedOutTimes.setText("Checked Out : ");
 
         lCheckedOutTimes.setForeground(new java.awt.Color(255, 255, 255));
-        lCheckedOutTimes.setText("Checked Out : $ times");
+        lCheckedOutTimes.setText("Checked Out : ");
 
         mCOUserNumBooks.setForeground(new java.awt.Color(255, 255, 255));
-        mCOUserNumBooks.setText("Has $ Books Checked Out");
+        mCOUserNumBooks.setText("Has: Books Checked Out");
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -254,39 +260,36 @@ public class StatsView extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(mostCheckedOutLabel)
-                                    .addComponent(leastCheckedOutLabel)
-                                    .addComponent(mostUserLabel)
-                                    .addComponent(mostPopGenreLabel)
-                                    .addComponent(leastPopGenreLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(mCheckedOutId)
-                                    .addComponent(lCheckedOutId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(mPopGenre)
-                                    .addComponent(lPopGenre)
-                                    .addComponent(mCOUserId))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(mCOUserName)
-                                    .addComponent(lCheckedOutTitle)
-                                    .addComponent(mCheckedOutTitle))
-                                .addGap(16, 16, 16)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(mCheckedOutTimes)
-                                    .addComponent(lCheckedOutTimes)
-                                    .addComponent(mCOUserNumBooks))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mostCheckedOutLabel)
+                            .addComponent(leastCheckedOutLabel)
+                            .addComponent(mostUserLabel)
+                            .addComponent(mostPopGenreLabel)
+                            .addComponent(leastPopGenreLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mCheckedOutId)
+                            .addComponent(lCheckedOutId, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(mPopGenre)
+                            .addComponent(lPopGenre)
+                            .addComponent(mCOUserId))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mCOUserName)
+                            .addComponent(lCheckedOutTitle)
+                            .addComponent(mCheckedOutTitle))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mCheckedOutTimes)
+                            .addComponent(lCheckedOutTimes)
+                            .addComponent(mCOUserNumBooks)))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(errorLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(238, 238, 238))
         );
