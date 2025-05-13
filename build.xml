@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Booksql" default="run" basedir=".">
     <description>Builds, tests, and runs the project Booksql.</description>
+
+    <property name="test.test.dir" value="test"/>
+
     <import file="nbproject/build-impl.xml"/>
 
-    <!-- Override run target to use main.class -->
     <target name="run" depends="init,compile">
         <java classname="${main.class}" fork="true" failonerror="true" dir="${basedir}">
             <classpath>
