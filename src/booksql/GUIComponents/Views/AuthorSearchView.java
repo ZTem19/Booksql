@@ -32,16 +32,18 @@ public class AuthorSearchView extends JPanel {
     }
 
     private void configureTable() {
-        tableModel = new DefaultTableModel(new Object[]{"ID", "First Name", "Last Name", "Edit", "Delete"}, 0);
+        tableModel = new DefaultTableModel(new Object[]{"ID", "First Name", "Last Name", "Birth Date", "Edit", "Delete"}, 0);
         authorTable.setModel(tableModel);
-        authorTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumnModel colModel = authorTable.getColumnModel();
+        authorTable.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        authorTable.setAutoCreateRowSorter(true); // Enable sorting
 
-        colModel.getColumn(0).setPreferredWidth(50);
-        colModel.getColumn(1).setPreferredWidth(150);
-        colModel.getColumn(2).setPreferredWidth(150);
-        colModel.getColumn(3).setPreferredWidth(75);
-        colModel.getColumn(4).setPreferredWidth(75);
+        TableColumnModel colModel = authorTable.getColumnModel();
+        colModel.getColumn(0).setPreferredWidth(50);   // ID
+        colModel.getColumn(1).setPreferredWidth(150);  // First Name
+        colModel.getColumn(2).setPreferredWidth(150);  // Last Name
+        colModel.getColumn(3).setPreferredWidth(150);  // Birth Date
+        colModel.getColumn(4).setPreferredWidth(75);   // Edit
+        colModel.getColumn(5).setPreferredWidth(75);   // Delete
 
         authorTable.getColumn("Edit").setCellRenderer(new ButtonRenderer("Edit"));
         authorTable.getColumn("Edit").setCellEditor(new EditButtonEditor(new JCheckBox()));
@@ -113,6 +115,7 @@ public class AuthorSearchView extends JPanel {
                             a.getAuthorId(),
                             a.getFirstName(),
                             a.getLastName(),
+                            a.getBirthDate().toString(),
                             "Edit",
                             "Delete"
                     });
